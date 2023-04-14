@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:52 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/14 14:11:45 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:17:48 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void	take_a_fork_if_available(t_data *data)
 void *philosopher(void *arg)
 {
 	t_data *data = arg;
+	pthread_mutex_lock(&data->mutex);
 	usleep(50000);
 	printf("Hi from philo %d\n",data->iter);
-	if (data->philo->philo_id % 2 == 0)
-		pthread_mutex_lock(&data->mutex);
+	// if (data->philo->philo_id % 2 == 0)
 	take_a_fork_if_available(data);
 	printf("Thread %d done!\n", data->iter);
+	pthread_mutex_unlock(&data->mutex);
 	return NULL;
 }
 
@@ -58,13 +59,13 @@ int	main(int argc, char **argv)
 	init_philo_struct(&philo);
 	data.philo = &philo;
 	// data.mutex = mutex;
-	threads = malloc(sizeof(threads) * data.number_of_philosophers + 1);
+	threads = malloc(sizeof(threads) * data.number_of_philosophers + 1); //! to be protected
+	if (pthread_mutex_init(&data.mutex, NULL) != 0)
+		return (0);
 	i = 1;
 	while (i < data.number_of_philosophers)
 	{
 		if (pthread_create(&threads[i], NULL, philosopher, &data))
-			return (0);
-		if (pthread_mutex_init(&data.mutex, NULL) != 0)
 			return (0);
 		sleep(1);
 		i++;
@@ -72,6 +73,12 @@ int	main(int argc, char **argv)
 		philo.philo_id = data.iter;
 	}
 	printf("Exiting from main program\n");
+	i--;
+	while (i > 0)
+	{
+		pthread_join(threads[i], NULL);
+		i--;
+	}
 	return 0;
 
 }
