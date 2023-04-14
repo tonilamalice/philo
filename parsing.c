@@ -6,18 +6,20 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/13 17:29:00 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:48:13 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+
 
 void	check_args(int argc, char **argv)
 {
 	if (!argv)
 	{
 		printf("please enter arguments");
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); //! Attention exit not allowed
 	}
 
 	if (argc != 5 && argc != 6)
@@ -33,6 +35,7 @@ void	put_args_in_data_struct(char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->iter = 1;
 	if (argv[5])
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 
@@ -48,3 +51,4 @@ void	put_args_in_data_struct(char **argv, t_data *data)
 		exit(EXIT_FAILURE);
 	}
 }
+

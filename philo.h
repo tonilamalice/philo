@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:49:31 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/13 17:37:16 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:04:51 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 # include <stdio.h>
 # include <pthread.h>
 
+typedef struct s_philo
+{
+	int is_eating;
+	int took_fork;
+	int is_sleeping;
+	int is_thinking;
+	int	is_dead;
+	int	philo_id;
+}				t_philo;
+
 typedef struct s_data
 {
 	int	number_of_philosophers;
@@ -27,7 +37,10 @@ typedef struct s_data
 	int	time_to_sleep;
 	int	number_of_times_each_philosopher_must_eat;
 	int	iter;
+	pthread_mutex_t mutex;
+	t_philo *philo;
 }				t_data;
+
 
 // Libft
 char	*ft_itoa(int nbr);
