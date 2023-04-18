@@ -6,14 +6,16 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:52 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/17 18:23:38 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:33:56 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <string.h>
+#include <stdio.h>
+#include <time.h>
 
-void	init_philo_struct(t_philo *philo, t_data *data, int i)
+void	init_philo_struct(t_philo *philo, int i)
 {
 	philo->is_dead = 0;
 	philo->is_sleeping = 0;
@@ -22,7 +24,6 @@ void	init_philo_struct(t_philo *philo, t_data *data, int i)
 	philo->took_fork_left = 0;
 	philo->took_fork_right = 0;
 	philo->philo_id = i;
-(void) data;
 }	
 
 void	take_a_fork_if_available(t_data *data)
@@ -38,18 +39,67 @@ void	take_a_fork_if_available(t_data *data)
 		data->philo->took_fork_left++;
 		printf("philo %d has taken a fork\n", data->philo->philo_id);
 	}
-	// if (data->philo->took_fork) ;
+
 }
 
+long	time_now(void)
+{
+	long			res;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	res = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (res);
+}
+
+void	print(int	i, t_philo *philo)
+{
+	if (i == 0)
+	{
+		printf("philo %d fork has been taken\n", philo->philo_id);
+		pthread_mutex_lock(&philo->data->print[0]);
+	}
+	if (i == 1)
+	{
+			printf("philo %d fork 2 has been taken\n", philo->philo_id);
+			pthread_mutex_lock(&philo->data->print[1]);
+	}
+	if (i == 2)
+	{
+			printf("philo %d is sleeping\n", philo->philo_id);
+			pthread_mutex_lock(&philo->data->print[2]);
+	}
+}
 
 void *philosopher(void *arg)
 {
 	t_philo	*philo = arg;
 	
-	printf(" BEFORE philo %d has taken a fork\n", philo->philo_id);
+	int	i;
+	i = 0;
+	// usleep(philo->data->time_to_eat);
+	usleep(500);
+	while (0 < 10000)
+	{
+		
+	if (philo->philo_id % 2 == 0)
+	{
+		usleep(10000);
+	}
 	pthread_mutex_lock(&philo->data->forks[philo->philo_id]);
-	printf("philo %d has taken a fork\n", philo->philo_id);
+	// pthread_mutex_lock(&philo->data->print[0]);
+	print(0, philo);
+	pthread_mutex_lock(&philo->data->forks[philo->philo_id + 1]);
+	
+	print(1, philo);
+	print(2, philo);
+	// printf("philo %d is eating\n", philo->philo_id);
+	// printf("philo %d is sleeping\n", philo->philo_id);
+	usleep(5000);
 	pthread_mutex_unlock(&philo->data->forks[philo->philo_id]);
+	i++;
+	}
+
 	// take_a_fork_if_available(data);
 	// if (data->iter % 2 == 0)
 	// 	{
@@ -57,25 +107,14 @@ void *philosopher(void *arg)
 	// 		printf("philo %d \n", data->iter);
 			
 	// 	}
-	// while (1)
-	// {
-	// 	// pthread_mutex_lock(&data->mutex);
-	// 	usleep(50000);
-	// 	printf("Hi from philo %d\n",data->iter);
-	// 	printf("Thread %d done!\n", data->iter);
-	// 	// pthread_mutex_unlock(&data->mutex);
-	// }
 	return NULL;
 }
 
 int	mutex_init(t_data *data)
 {
 	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	
+	i = 0;
 	data->forks = malloc(sizeof(data->forks) * data->number_of_philosophers);
 	if (!data->forks)
 		return (0);
@@ -85,14 +124,15 @@ int	mutex_init(t_data *data)
 	while (i < data->number_of_philosophers)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (0);
+			return (printf("Pthread_mutex_init() failed."));
 		i++;
 	}
-	while (j < 5)
+	i = 0;
+	while (i < 5)
 	{
-		if (pthread_mutex_init(&data->print[j], NULL) != 0)
-			return (0);
-		j++;
+		if (pthread_mutex_init(&data->print[i], NULL) != 0)
+			return (printf("Pthread_mutex_init() failed."));
+		i++;
 	}
 	return (1);
 }
@@ -107,11 +147,13 @@ int	main(int argc, char **argv)
 	memset(&data, 0, sizeof(t_data));
 	check_args(argc, argv);
 	put_args_in_data_struct(argv, &data);
-		data.philo = malloc(sizeof(data.philo) * data.number_of_philosophers);
+	data.philo = malloc(sizeof *data.philo * data.number_of_philosophers);
+	if (!data.philo)
+		return (1);
 	while (k < data.number_of_philosophers)
 	{
-		init_philo_struct(&data.philo[k], &data, k + 1);
-			data.philo[k].data = &data;
+		init_philo_struct(&data.philo[k], k + 1);
+		data.philo[k].data = &data;
 		k++;
 	}
 	if (!mutex_init(&data))
@@ -128,28 +170,18 @@ int	main(int argc, char **argv)
 		i++;
 		data.iter++;
 	}
-	printf("Exiting from main program\n");
 	i--;
 	while (i > 0)
 	{
 		pthread_join(data.threads[i], NULL);
 		i--;
 	}
+	printf("Exiting from main program\n");
 	return 0;
 
 }
 // Attention philosophe ne peuvent pas communiquer entre eux 
 // void	philo_creator(t_data *data, int i)
-
-	// pthread_t th1, th2;
-	// pthread_create(&th1, NULL, worker, "X");
-	// pthread_create(&th2, NULL, worker, "Y");
-	// sleep(1);
-	// pthread_cancel(th1);
-	// printf("cancelling Y\n");
-	// pthread_cancel(th2);
-	// printf("cancelling X\n");
-
 
 	// nombre impaire commence par manger --> pair commenece par dormir
 	// Tout les treads lancer au meme moment 
