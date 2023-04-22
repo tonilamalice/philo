@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/22 13:39:50 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:42:30 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_time(t_data *data)
 int	check_validity(char **argv)
 {
 	if (ft_atoi(argv[1]) < 0)
-		return (0)
+		return (0);
 }
 void	put_args_in_data_struct(char **argv, t_data *data)
 {
