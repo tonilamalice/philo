@@ -5,7 +5,8 @@ SRCS		= 	main.c\
 				utils/ft_itoa.c\
 				utils/ft_atoi.c\
 				utils/ft_split.c\
-				utils/ft_strjoin_ft_strlen.c
+				utils/ft_strjoin_ft_strlen.c\
+				time.c
 			
 OBJS		= $(SRCS:.c=.o)
 
