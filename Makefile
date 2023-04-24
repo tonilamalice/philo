@@ -6,13 +6,14 @@ SRCS		= 	main.c\
 				utils/ft_atoi.c\
 				utils/ft_split.c\
 				utils/ft_strjoin_ft_strlen.c\
-				time.c
+				time.c\
+				death.c
 			
 OBJS		= $(SRCS:.c=.o)
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=thread -g
 
 all: $(NAME)
 

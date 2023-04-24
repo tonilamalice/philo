@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 12:25:24 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/22 12:31:51 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:15:40 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	my_musleep(t_data *data, long time)
 {
 	long	now;
 	long	start;
-	int		who;
 
 	start = time_now(data);
 	while (!who_dead(data))
@@ -26,12 +25,8 @@ void	my_musleep(t_data *data, long time)
 			break ;
 		usleep(100);
 	}
-	who = who_dead(data);
-	if (who)
-	{
-		print_dead(who, &data->philo[who]);
-		exit(1);
-	}
+	// if (data->someone_dead)
+	// 	exit(0);
 }
 
 long	time_now(t_data *data)

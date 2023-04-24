@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/22 13:42:30 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:02:34 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ int	check_validity(char **argv)
 {
 	if (ft_atoi(argv[1]) < 0)
 		return (0);
+	return (1);
 }
-void	put_args_in_data_struct(char **argv, t_data *data)
+
+int	put_args_in_data_struct(char **argv, t_data *data)
 {
-	
 	data->number_of_philosophers = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -54,14 +55,15 @@ void	put_args_in_data_struct(char **argv, t_data *data)
 		|| data->time_to_eat <= 0 || data->time_to_sleep <= 0)
 	{
 		printf("please enter only positive arguments\n");
-		return ;
+		return (0);
 	}
 	if (argv[5] && data->number_of_times_each_philosopher_must_eat <= 0)
 	{
 		printf("please enter only positive arguments\n");
-		return ;
+		return (0);
 	}
 	init_time(data);
+	return (1);
 }
 
 void	init_philo_struct(t_philo *philo, int i)
@@ -73,6 +75,7 @@ void	init_philo_struct(t_philo *philo, int i)
 	philo->took_fork_left = 0;
 	philo->took_fork_right = 0;
 	philo->philo_id = i;
+	philo->last_meal = 0;
 }	
 
 int	mutex_init(t_data *data)
