@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 12:25:24 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/24 20:15:40 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:08:25 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	my_musleep(t_data *data, long time)
 			break ;
 		usleep(100);
 	}
-	// if (data->someone_dead)
-	// 	exit(0);
 }
 
 long	time_now(t_data *data)

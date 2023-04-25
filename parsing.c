@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/24 20:02:34 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:09:28 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ void	init_time(t_data *data)
 
 	gettimeofday(&time, NULL);
 	data->begin_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-}
-
-int	check_validity(char **argv)
-{
-	if (ft_atoi(argv[1]) < 0)
-		return (0);
-	return (1);
 }
 
 int	put_args_in_data_struct(char **argv, t_data *data)
