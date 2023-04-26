@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:49:31 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/25 13:09:05 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:44:43 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ struct	s_data;
 typedef struct s_philo
 {
 	bool			is_eating;
-	bool			took_fork_left;
-	bool			took_fork_right;
 	bool			is_sleeping;
 	bool			is_thinking;
 	atomic_bool		is_dead;
@@ -38,6 +36,7 @@ typedef struct s_philo
 	int				philo_id;
 	int				*philo_table;
 	struct s_data	*data;
+	int				philo_meals;
 }				t_philo;
 
 typedef struct s_data
@@ -68,9 +67,14 @@ int		check_args(int argc, char **argv);
 int		put_args_in_data_struct(char **argv, t_data *data);
 void	init_philo_struct(t_philo *philo, int i);
 int		mutex_init(t_data *data);
-void	my_musleep(t_data *data, long time);
+void	custom_sleep(t_data *data, long time);
 long	time_now(t_data *data);
 bool	who_dead(t_data *data);
 void	check_death(t_data *data);
 void	print_dead(t_philo *philo);
+void	print(int i, t_philo *philo);
+void	routine(t_philo *philo, int current_philo, int next_philo);
+void	*philosopher(void *arg);
+int		thread_creation(t_data *data);
+void	init_time(t_data *data);
 #endif

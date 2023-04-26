@@ -7,7 +7,8 @@ SRCS		= 	main.c\
 				utils/ft_split.c\
 				utils/ft_strjoin_ft_strlen.c\
 				time.c\
-				death.c
+				death.c\
+				thread.c
 			
 OBJS		= $(SRCS:.c=.o)
 
