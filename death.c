@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:06:59 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 15:49:20 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:56:14 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	check_death(t_data *data)
 		while (i < data->number_of_philosophers)
 		{
 			if (now - data->philo[i].last_meal > data->time_to_die)
-				{
-					data->philo[i].is_dead = true;
-					data->someone_dead = true;
-				}
+			{
+				data->philo[i].is_dead = true;
+				data->someone_dead = true;
+			}
 			i++;
 		}
 		custom_sleep(data, 1);
@@ -52,7 +52,7 @@ static int	all_eaten(t_data *data)
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
-		if (data->philo[i]->philo_meals >= data->number_of_times_each_philosopher_must_eat)
+		if (data->philo[i].philo_meals >= data->number_of_times_each_philosopher_must_eat)
 			flag += 1;
 		i++;
 	}
@@ -68,17 +68,20 @@ bool	who_dead(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->number_of_philosophers)
+	while (1)
 	{
-		if (data->philo[i].is_dead)
+		i = 0;
+		while (i < data->number_of_philosophers)
 		{
-			print_dead(&data->philo[i]);
-			data->someone_dead = true;
-			return (i);
+			if (data->philo[i].is_dead)
+			{
+				print_dead(&data->philo[i]);
+				data->someone_dead = true;
+				return (i);
+			}
+			i++;			
 		}
-		i++;
-		if (all_eaten(&data))
+		if (all_eaten(data))
 			return (1);
 	}
 	return (0);

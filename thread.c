@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 14:22:22 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 14:50:49 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:39:02 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print(int i, t_philo *philo)
 
 void	routine(t_philo *philo, int current_philo, int next_philo)
 {
-	while (!who_dead(philo->data))
+	while (!philo->data->someone_dead)
 	{
 		pthread_mutex_lock(&philo->data->forks[current_philo]);
 		print(0, philo);

@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 12:25:24 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 14:17:49 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:57:10 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	custom_sleep(t_data *data, long time)
 	long	start;
 
 	start = time_now(data);
-	while (!who_dead(data))
+	while (!data->someone_dead)
 	{
 		now = time_now(data);
 		if (now - start >= time)

@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:49:31 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 14:44:43 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:02:27 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_philo
 	atomic_bool		is_dead;
 	atomic_long		last_meal;
 	int				philo_id;
-	int				*philo_table;
 	struct s_data	*data;
 	int				philo_meals;
 }				t_philo;

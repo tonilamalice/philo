@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 14:28:16 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:38:57 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	check_args(int argc, char **argv)
 
 int	put_args_in_data_struct(char **argv, t_data *data)
 {
+	data->someone_dead = false;
 	data->number_of_philosophers = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
