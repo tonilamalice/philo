@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:17:56 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/13 14:37:40 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 15:05:40 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_itoa(int nbr)
 	int		len;
 
 	len = get_len(nbr);
-	result = malloc(sizeof(*result) * (len + 1));
+	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (0);
 	result[len] = '\0';

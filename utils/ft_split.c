@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:17:37 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/13 14:50:18 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 15:06:09 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (0);
-	res = malloc(sizeof(*res) * (word_count(s, c) + 1));
+	res = malloc(sizeof(char *) * (word_count(s, c) + 1));
 	if (!res)
 		return (0);
 	return (ft_split2(s, c, res));

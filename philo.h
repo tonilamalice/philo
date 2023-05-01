@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:49:31 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 17:02:27 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:10:52 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ typedef struct s_philo
 	atomic_long		last_meal;
 	int				philo_id;
 	struct s_data	*data;
-	int				philo_meals;
+	atomic_int		philo_meals;
 }				t_philo;
 
 typedef struct s_data
 {
 	atomic_bool		someone_dead;
-	int				number_of_philosophers;
+	int				nb_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				number_of_times_each_philosopher_must_eat;
-	int				iter;
+	atomic_int		time_philosopher_must_eat;
 	t_philo			*philo;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
@@ -76,4 +75,5 @@ void	routine(t_philo *philo, int current_philo, int next_philo);
 void	*philosopher(void *arg);
 int		thread_creation(t_data *data);
 void	init_time(t_data *data);
+void	free_all(t_data *data);
 #endif

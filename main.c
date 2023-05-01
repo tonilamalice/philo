@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:52 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 16:53:34 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:10:19 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!put_args_in_data_struct(argv, &data))
 		return (1);
-	data.philo = malloc(sizeof * data.philo * data.number_of_philosophers);
+	data.philo = malloc(sizeof(t_philo) * data.nb_philosophers);
 	if (!data.philo)
 		return (1);
-	while (i < data.number_of_philosophers)
+	while (i < data.nb_philosophers)
 	{
 		init_philo_struct(&data.philo[i], i + 1);
 		data.philo[i].last_meal = data.begin_time;
@@ -35,7 +35,6 @@ int	main(int argc, char **argv)
 	}
 	if (!thread_creation(&data))
 		return (1);
-	printf("Exiting from main program\n");
+	free_all(&data);
 	return (0);
 }
-// if phtread_mutex_init --> return printf --> prob ?

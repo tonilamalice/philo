@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 14:22:22 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/26 16:39:02 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:58:31 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print(int i, t_philo *philo)
 	else if (i == 2)
 	{
 		printf("%ld %d is eating\n", time, philo->philo_id);
-		philo->philo_meals++;		
+		philo->philo_meals++;
 	}
 	else if (i == 3)
 		printf("%ld %d is sleeping\n", time, philo->philo_id);
@@ -47,7 +47,7 @@ void	routine(t_philo *philo, int current_philo, int next_philo)
 	{
 		pthread_mutex_lock(&philo->data->forks[current_philo]);
 		print(0, philo);
-		if (philo->data->number_of_philosophers == 1)
+		if (philo->data->nb_philosophers == 1)
 		{
 			pthread_mutex_unlock(&philo->data->forks[current_philo]);
 			return ;
@@ -74,10 +74,10 @@ void	*philosopher(void *arg)
 	philo = arg;
 	current_philo = philo->philo_id - 1;
 	next_philo = philo->philo_id;
-	if (next_philo == philo->data->number_of_philosophers)
+	if (next_philo == philo->data->nb_philosophers)
 		next_philo = 0;
 	if (philo->philo_id % 2 == 0)
-		custom_sleep(philo->data, philo->data->time_to_eat / 2);
+		custom_sleep(philo->data, philo->data->time_to_eat / 4);
 	routine(philo, current_philo, next_philo);
 	return (NULL);
 }
@@ -87,17 +87,23 @@ int	mutex_init(t_data *data)
 	int	i;
 
 	i = 0;
-	data->forks = malloc(sizeof(data->forks) * data->number_of_philosophers);
+	data->forks = malloc(sizeof (pthread_mutex_t) * data->nb_philosophers);
 	if (!data->forks)
 		return (0);
-	while (i < data->number_of_philosophers)
+	while (i < data->nb_philosophers)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (printf("Pthread_mutex_init() failed."));
+		{
+			printf("Pthread_mutex_init() failed.");
+			return (0);
+		}
 		i++;
 	}
 	if (pthread_mutex_init(&data->print, NULL) != 0)
-		return (printf("Pthread_mutex_init() failed."));
+	{
+		printf("Pthread_mutex_init() failed.");
+		return (0);
+	}
 	return (1);
 }
 
@@ -107,25 +113,25 @@ int	thread_creation(t_data *data)
 
 	if (!mutex_init(data))
 		return (1);
-	data->threads = malloc(sizeof(data->threads)
-			* data->number_of_philosophers + 1);
+	data->threads = malloc(sizeof(pthread_t)
+			* data->nb_philosophers + 1);
 	if (!data->threads)
 		return (0);
 	i = 0;
-	while (i < data->number_of_philosophers)
+	while (i < data->nb_philosophers)
 	{
+		data->philo[i].last_meal = time_now(data);
 		if (pthread_create(&data->threads[i], NULL,
 				philosopher, &data->philo[i]))
 			return (0);
 		i++;
-		data->iter++;
 	}
-	i--;
-	check_death(data);
-	while (i > 0)
+	i = 0;
+	who_dead(data);
+	while (i < data->nb_philosophers)
 	{
 		pthread_join(data->threads[i], NULL);
-		i--;
+		i++;
 	}
 	return (1);
 }

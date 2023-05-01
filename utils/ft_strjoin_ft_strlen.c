@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:13:53 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/13 14:50:31 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:55:46 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (0);
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
-	s3 = malloc(sizeof(*s3) * (s1len + s2len + 1));
+	s3 = malloc(sizeof(char) * (s1len + s2len + 1));
 	if (!s3)
 	{
 		free(s1);
-		exit(0);
+		return (NULL);
 	}
 	i = -1;
 	j = 0;
