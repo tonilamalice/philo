@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:49:31 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/28 17:10:52 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 11:45:50 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ struct	s_data;
 
 typedef struct s_philo
 {
-	bool			is_eating;
-	bool			is_sleeping;
-	bool			is_thinking;
-	atomic_bool		is_dead;
 	atomic_long		last_meal;
 	int				philo_id;
 	struct s_data	*data;

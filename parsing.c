@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/28 17:10:12 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 11:45:42 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ int	put_args_in_data_struct(char **argv, t_data *data)
 
 void	init_philo_struct(t_philo *philo, int i)
 {
-	philo->is_dead = 0;
-	philo->is_sleeping = 0;
-	philo->is_eating = 0;
-	philo->is_thinking = 0;
 	philo->philo_id = i;
 	philo->last_meal = 0;
 }
