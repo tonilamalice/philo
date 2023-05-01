@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 14:22:22 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 15:24:02 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:11:26 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	thread_creation(t_data *data)
 	int	i;
 
 	if (!mutex_init(data))
-		return (1);
+		return (0);
 	data->threads = malloc(sizeof(pthread_t)
 			* data->nb_philosophers + 1);
 	if (!data->threads)

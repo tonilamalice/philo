@@ -6,11 +6,13 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 11:45:42 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:23:30 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+ #include <errno.h>
 
 int	check_args(int argc, char **argv)
 {
@@ -59,6 +61,15 @@ void	init_philo_struct(t_philo *philo, int i)
 
 void	free_all(t_data *data)
 {
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philosophers)
+	{
+		printf("bonjour%d %d\n",pthread_mutex_destroy(&data->forks[i]), EINVAL);
+		i++;
+	}
+	printf("bonjour%d\n", pthread_mutex_destroy(&data->print));
 	free(data->philo);
 	free(data->forks);
 	free(data->threads);
