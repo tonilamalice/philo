@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:49:31 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 11:45:50 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:27:11 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,6 @@ typedef struct s_data
 }				t_data;
 
 // Libft
-char	*ft_itoa(int nbr);
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *s);
 int		ft_atoi(char *str);
 
 // Philo
@@ -64,7 +60,6 @@ int		mutex_init(t_data *data);
 void	custom_sleep(t_data *data, long time);
 long	time_now(t_data *data);
 bool	who_dead(t_data *data);
-void	check_death(t_data *data);
 void	print_dead(t_philo *philo);
 void	print(int i, t_philo *philo);
 void	routine(t_philo *philo, int current_philo, int next_philo);
@@ -72,4 +67,6 @@ void	*philosopher(void *arg);
 int		thread_creation(t_data *data);
 void	init_time(t_data *data);
 void	free_all(t_data *data);
+int		free_custom(int i, t_data *data);
+void	init_failed(t_data *data, int i);
 #endif

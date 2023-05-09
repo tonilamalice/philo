@@ -6,13 +6,11 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:28:32 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 18:23:30 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:11:59 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
- #include <errno.h>
 
 int	check_args(int argc, char **argv)
 {
@@ -66,11 +64,22 @@ void	free_all(t_data *data)
 	i = 0;
 	while (i < data->nb_philosophers)
 	{
-		printf("bonjour%d %d\n",pthread_mutex_destroy(&data->forks[i]), EINVAL);
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
-	printf("bonjour%d\n", pthread_mutex_destroy(&data->print));
 	free(data->philo);
 	free(data->forks);
 	free(data->threads);
+}
+
+void	init_failed(t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		pthread_mutex_destroy(&data->forks[j]);
+		j++;
+	}
 }

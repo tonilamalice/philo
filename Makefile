@@ -2,10 +2,7 @@ NAME		= philo
 
 SRCS		= 	main.c\
 				parsing.c\
-				utils/ft_itoa.c\
 				utils/ft_atoi.c\
-				utils/ft_split.c\
-				utils/ft_strjoin_ft_strlen.c\
 				time.c\
 				death.c\
 				thread.c

@@ -6,11 +6,21 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:52 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 18:05:44 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:20:35 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	free_custom(int i, t_data *data)
+{
+	if (i == 1)
+	{
+		free(data->philo);
+		free(data->forks);
+	}
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -34,11 +44,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	if (!thread_creation(&data))
-	{
-		free(data.forks);
-		free(data.philo);
 		return (1);
-	}
 	free_all(&data);
 	return (0);
 }
