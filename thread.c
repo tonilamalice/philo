@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 14:22:22 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/09 13:31:21 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:42:27 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ int	mutex_init(t_data *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	data->forks = malloc(sizeof (pthread_mutex_t) * data->nb_philosophers);
 	if (!data->forks)
 	{
 		free(data->philo);
 		return (0);
 	}
-	while (i++ < data->nb_philosophers)
+	while (++i < data->nb_philosophers)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 		{
